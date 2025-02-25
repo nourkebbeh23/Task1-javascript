@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TASK1</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
+  <style>
+
+  </style>
+  <body >
+    <div class="Container">
+      <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+            <h1>Personal Budget Planner</h1>
+            <form id="budgetForm">
+                <input type="number" id="monthlyBudget" placeholder="Set Monthly Budget" required>
+                <button type="submit">Set Budget</button>
+            </form>
+            <h2>Monthly Budget: $<span id="budgetDisplay">0</span></h2>
+            <h2>Total Expenses: $<span id="totalExpenses">0</span></h2>
+            <h2>Remaining Budget: $<span id="remainingBudget">0</span></h2>
+            <form id="expenseForm">
+                <input type="text" id="expenseDescription" placeholder="Expense Description" required>
+                <input type="number" id="expenseAmount" placeholder="Amount" required>
+                <select id="expenseCategory">
+                    <option value="Food">Food</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Entertainment">Entertainment</option>
+                </select>
+                <button type="submit">Add Expense</button>
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody id="expenseTable"></tbody>
+            </table>
+            <script>
+                const budgetForm = document.getElementById('budgetForm');
+                const expenseForm = document.getElementById('expenseForm');
+                const budgetDisplay = document.getElementById('budgetDisplay');
+                const totalExpensesDisplay = document.getElementById('totalExpenses');
+                const remainingBudgetDisplay = document.getElementById('remainingBudget');
+                const expenseTable = document.getElementById('expenseTable');
+        
+                let budget = 0;
+                let totalExpenses = 0;
+        
+                budgetForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    budget = parseFloat(document.getElementById('monthlyBudget').value);
+                    updateDisplay();
+                });
+        
+                expenseForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const description = document.getElementById('expenseDescription').value;
+                    const amount = parseFloat(document.getElementById('expenseAmount').value);
+                    const category = document.getElementById('expenseCategory').value;
+        
+                    totalExpenses += amount;
+        
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${description}</td><td>$${amount}</td><td>${category}</td>`;
+                    expenseTable.appendChild(row);
+        
+                    updateDisplay();
+                    expenseForm.reset();
+                });
+        
+                function updateDisplay() {
+                    budgetDisplay.textContent = budget.toFixed(2);
+                    totalExpensesDisplay.textContent = totalExpenses.toFixed(2);
+                    remainingBudgetDisplay.textContent = (budget - totalExpenses).toFixed(2);
+                }
+            </script>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  </body>
+</html>
